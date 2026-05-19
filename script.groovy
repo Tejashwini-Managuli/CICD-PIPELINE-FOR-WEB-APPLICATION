@@ -16,14 +16,14 @@ def Test(){
 
 def Deploy(){
     echo "Deploying the application..."
-    def makedir = "mkdir /root/new"  // creating a new directory on remote server
-    def cd = "cd /root/new"  // changing directory to new directory on remote server where we copied docker-compose.yml file
+    def makedir = "mkdir -p /home/ubuntu/new"
+    def cd = "cd /home/ubuntu/new"// changing directory to new directory on remote server where we copied docker-compose.yml file
     def dockerCmd = "TAG=${env.TAG} REPO_NAME=${env.REPO_NAME} docker-compose up -d" // running docker-compose up command on remote server using TAG variable and REPO_NAME variable
     
     sshagent(['jenkins-private-key']) {  // using  private ssh key of jenkins to connect to remote production server
         //copying docker-compose.yml file to remote server
         sh "ssh -o StrictHostKeyChecking=no ${env.SERVER_USER}@${env.SERVER_IP} '${makedir};${cd}'"  // running commands on remote server, you can add more commands here seperating them with semicolon
-        sh "scp docker-compose.yml ${env.SERVER_USER}@${env.SERVER_IP}:/root/new"  // copy docker-compose.yml file to remote server
+        sh "scp docker-compose.yml ${env.SERVER_USER}@${env.SERVER_IP}:/home/ubuntu/new" // copy docker-compose.yml file to remote server
         sh "ssh -o StrictHostKeyChecking=no ${env.SERVER_USER}@${env.SERVER_IP} '${cd};${dockerCmd}'"  // running commands on remote server, you can add more commands here seperating them with semicolon
         
     }
