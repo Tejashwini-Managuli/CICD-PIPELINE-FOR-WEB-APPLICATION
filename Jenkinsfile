@@ -8,7 +8,7 @@ environment {
     TAG = '1.0.5' // tag for your image
     SERVER_IP = "137.184.23.94"  // ip of your remote server
     SERVER_USER = "root"  // username of your remote server
-    REPO_NAME = "ankitraz/mywebsite"  // your dockerhub repo name
+    REPO_NAME = "adminteja/mywebsite" // your dockerhub repo name
     APP_NAME = "mywebsite" // name of your app
 }
 
